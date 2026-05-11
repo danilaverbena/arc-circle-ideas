@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Что можно завайбкодить на Arc × Circle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600;9..144,800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0a0e1a;
+  --paper: #fbfaf7;
+  --paper-2: #f3f1eb;
+  --rule: #d8d2c4;
+  --muted: #5a5a55;
+  --accent: #0048ff; /* Circle electric blue */
+  --arc: #ff5722;    /* Arc accent */
+  --usdc: #2775ca;   /* USDC blue */
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.55;
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── HERO ─────────────────────────────────────────── */
+.hero {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 8vh 6vw 9vh;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(800px circle at 20% 30%, rgba(0, 72, 255, 0.18), transparent 60%),
+    radial-gradient(600px circle at 85% 70%, rgba(255, 87, 34, 0.12), transparent 55%);
+  pointer-events: none;
+}
+.hero-inner { max-width: 1180px; margin: 0 auto; position: relative; }
+.kicker {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 28px;
+  display: flex; gap: 14px; align-items: center;
+}
+.kicker .dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 12px var(--accent); }
+.hero h1 {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: clamp(2.6rem, 6.8vw, 6rem);
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+  margin-bottom: 36px;
+  max-width: 18ch;
+}
+.hero h1 em {
+  font-style: italic;
+  background: linear-gradient(120deg, var(--accent) 0%, var(--arc) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 400;
+}
+.hero p.lead {
+  font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+  max-width: 62ch;
+  color: rgba(255,255,255,0.78);
+  font-weight: 300;
+  line-height: 1.6;
+}
+.hero-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 32px;
+  margin-top: 64px;
+  padding-top: 36px;
+  border-top: 1px solid rgba(255,255,255,0.12);
+}
+.hero-meta div span {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 8px;
+}
+.hero-meta div strong {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-size: 1.15rem;
+  color: var(--paper);
+}
+
+/* ── SECTION SCAFFOLD ─────────────────────────────── */
+section { padding: 8vh 6vw; max-width: 1180px; margin: 0 auto; }
+.section-head { margin-bottom: 56px; max-width: 720px; }
+.section-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+.section-head h2 {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 18px;
+}
+.section-head p {
+  font-size: 1.05rem;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+/* ── CAPABILITY GRID ──────────────────────────────── */
+.cap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+}
+.cap {
+  background: var(--paper);
+  padding: 28px 26px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.cap .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.cap h3 {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 1.3rem;
+  line-height: 1.2;
+}
+.cap p {
+  font-size: 0.92rem;
+  color: var(--muted);
+  line-height: 1.55;
+}
+.cap.arc h3::before { content: '◈ '; color: var(--arc); }
+.cap.circle h3::before { content: '◉ '; color: var(--accent); }
+.cap.ai h3::before { content: '⊛ '; color: #6a3df0; }
+
+/* ── IDEAS ────────────────────────────────────────── */
+.ideas {
+  background: var(--paper-2);
+  padding-top: 9vh;
+  padding-bottom: 9vh;
+}
+.ideas-wrap { max-width: 1180px; margin: 0 auto; padding: 0 6vw; }
+
+.idea {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  margin-bottom: 22px;
+  padding: 44px 48px;
+  display: grid;
+  grid-template-columns: 80px 1fr 280px;
+  gap: 40px;
+  transition: border-color 0.3s, transform 0.3s;
+  position: relative;
+}
+.idea:hover { border-color: var(--ink); }
+.idea .num {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: 3.5rem;
+  line-height: 1;
+  color: var(--accent);
+  letter-spacing: -0.04em;
+}
+.idea .body h3 {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 1.85rem;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin-bottom: 6px;
+}
+.idea .tagline {
+  font-size: 1rem;
+  color: var(--accent);
+  margin-bottom: 16px;
+  font-style: italic;
+  font-family: 'Fraunces', serif;
+}
+.idea .desc {
+  font-size: 0.98rem;
+  color: var(--ink);
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+.idea .mvp {
+  font-size: 0.9rem;
+  color: var(--muted);
+  border-left: 2px solid var(--accent);
+  padding: 6px 0 6px 16px;
+  line-height: 1.6;
+}
+.idea .mvp strong { color: var(--ink); font-weight: 600; display: block; margin-bottom: 2px; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; }
+
+.idea .stack {
+  border-left: 1px solid var(--rule);
+  padding-left: 28px;
+  display: flex; flex-direction: column; gap: 16px;
+}
+.stack-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.stack-block { display: flex; flex-direction: column; gap: 6px; }
+.chip-row { display: flex; flex-wrap: wrap; gap: 5px; }
+.chip {
+  display: inline-block;
+  padding: 4px 9px;
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--ink);
+  letter-spacing: 0.01em;
+}
+.chip.arc { background: rgba(255,87,34,0.08); border-color: rgba(255,87,34,0.3); color: var(--arc); }
+.chip.circle { background: rgba(0,72,255,0.08); border-color: rgba(0,72,255,0.3); color: var(--accent); }
+.chip.ai { background: rgba(106,61,240,0.08); border-color: rgba(106,61,240,0.3); color: #6a3df0; }
+
+.diff {
+  display: flex; gap: 6px; align-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--ink);
+}
+.bar { display: inline-flex; gap: 2px; }
+.bar i { width: 4px; height: 12px; background: var(--rule); border-radius: 1px; display: inline-block; }
+.bar i.on { background: var(--ink); }
+
+/* ── COMPARE TABLE ────────────────────────────────── */
+.compare {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 30px;
+  font-size: 0.92rem;
+}
+.compare th, .compare td {
+  text-align: left;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+.compare th {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 500;
+  border-bottom: 2px solid var(--ink);
+}
+.compare td:first-child { font-weight: 600; }
+.compare tr:hover td { background: var(--paper-2); }
+
+/* ── FOOTER / CTA ─────────────────────────────────── */
+.cta {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 10vh 6vw;
+}
+.cta-inner { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr; gap: 80px; }
+.cta h2 {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 22px;
+}
+.cta h2 em { font-style: italic; color: var(--accent); font-weight: 400; }
+.cta p { color: rgba(255,255,255,0.7); margin-bottom: 14px; max-width: 50ch; font-size: 1.05rem; }
+.cta pre {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 22px 24px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.92);
+  overflow-x: auto;
+}
+.cta pre .cm { color: rgba(255,255,255,0.4); }
+.cta pre .cmd { color: var(--accent); }
+
+footer {
+  padding: 30px 6vw;
+  background: var(--ink);
+  color: rgba(255,255,255,0.4);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  display: flex; justify-content: space-between;
+}
+
+/* ── RESPONSIVE ───────────────────────────────────── */
+@media (max-width: 900px) {
+  .idea { grid-template-columns: 1fr; padding: 32px 28px; gap: 24px; }
+  .idea .stack { border-left: none; border-top: 1px solid var(--rule); padding-left: 0; padding-top: 24px; }
+  .cta-inner { grid-template-columns: 1fr; gap: 40px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ─── HERO ──────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="kicker"><span class="dot"></span> Research Brief · 11.05.2026 · Arc Network × Circle Developers</div>
+    <h1>Что можно <em>завайбкодить</em> на стеке Arc и Circle</h1>
+    <p class="lead">Изучил <code>docs.arc.network</code>, <code>developers.circle.com</code> с AI Skills и MCP-сервером, прошёл по внутренним ссылкам: CCTP, Gateway, Nanopayments, App Kit, Modular Wallets, Smart Contract Platform, Paymaster. Ниже — карта возможностей и десять идей, которые реалистично собрать за выходные или пару недель с MCP-копайлотом.</p>
+    <div class="hero-meta">
+      <div><span>Primitives reviewed</span><strong>27+ pages</strong></div>
+      <div><span>SDKs / Kits</span><strong>App Kit · Bridge Kit · Unified Balance Kit · Modular Wallets SDK</strong></div>
+      <div><span>AI surface</span><strong>9 Circle Skills + MCP codegen</strong></div>
+      <div><span>Output</span><strong>10 vibe-codable ideas</strong></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CAPABILITY MAP ─────────────────────────────────── -->
+<section>
+  <div class="section-head">
+    <div class="section-tag">01 — Capability Surface</div>
+    <h2>Что фактически даёт вам этот стек</h2>
+    <p>Не «ещё один блокчейн». Это вертикально интегрированная финансовая платформа: USDC как нативная валюта, инфраструктура для кошельков и расчётов, и LLM-friendly документация. Главные строительные блоки:</p>
+  </div>
+
+  <div class="cap-grid">
+    <div class="cap arc">
+      <div class="label">L1 · Arc Network</div>
+      <h3>USDC = gas</h3>
+      <p>EVM-совместимая цепь (Reth + Malachite Tendermint). Sub-second finality, предсказуемые комиссии в USDC, нет волатильности ETH. Testnet, есть faucet.</p>
+    </div>
+    <div class="cap circle">
+      <div class="label">Cross-chain</div>
+      <h3>CCTP V2 + Gateway</h3>
+      <p>CCTP burn-and-mint native USDC между 19+ цепями (Fast ~8-20s). Gateway даёт unified balance с <500ms transfers и 7-day trustless withdrawal — никакой кастодии.</p>
+    </div>
+    <div class="cap circle">
+      <div class="label">Agentic payments</div>
+      <h3>Nanopayments × x402</h3>
+      <p>Sub-cent платежи (от $0.000001), gas-free, EIP-3009 offchain authorizations, batched settlement. HTTP 402 protocol — буквально просто middleware на Express.</p>
+    </div>
+    <div class="cap circle">
+      <div class="label">Wallets</div>
+      <h3>Passkey + Web2 login</h3>
+      <p>Modular Wallets (ERC-4337/6900, passkey signer, batch + parallel ops), user-controlled с Google/Apple/email/PIN, или developer-controlled для автоматизации.</p>
+    </div>
+    <div class="cap circle">
+      <div class="label">Gas abstraction</div>
+      <h3>Gas Station + Paymaster</h3>
+      <p>Спонсорируете gas с карты или даёте платить gas в USDC через ERC-4337 paymaster. Без нативного токена для пользователя.</p>
+    </div>
+    <div class="cap circle">
+      <div class="label">Contracts</div>
+      <h3>Templates + Events API</h3>
+      <p>Audited ERC-20/721/1155 templates, deploy через REST/SDK, ABI calls без Solidity. Event Monitoring webhooks для реактивной логики.</p>
+    </div>
+    <div class="cap circle">
+      <div class="label">Merchant flow</div>
+      <h3>Managed Payments</h3>
+      <p>Continuous payment intents для приёма USDC, stable deposit addresses per merchant, webhooks для подтверждений. Аналог Stripe Checkout, но для стейблов.</p>
+    </div>
+    <div class="cap ai">
+      <div class="label">AI Co-pilot</div>
+      <h3>MCP + Skills</h3>
+      <p>Circle MCP сервер (<code>api.circle.com/v1/codegen/mcp</code>) даёт IDE/агенту живые signatures и адреса. 9 LLM-оптимизированных skills с архитектурными гайдами.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── IDEAS ───────────────────────────────────────────── -->
+<div class="ideas">
+  <div class="ideas-wrap">
+    <div class="section-head">
+      <div class="section-tag">02 — Ten Ideas to Vibe-code</div>
+      <h2>Что я бы собирал</h2>
+      <p>Каждая идея привязана к конкретным primitives и Skills. Указан реалистичный MVP-скоуп и сложность. Топ-3 (<strong>MicroPay AI Gateway</strong>, <strong>Stripe-for-Agents</strong>, <strong>v0-for-Solidity</strong>) — мои фавориты: яркая ниша, защитимый USP, малое окно конкуренции.</p>
+    </div>
+
+    <!-- IDEA 1 -->
+    <div class="idea">
+      <div class="num">01</div>
+      <div class="body">
+        <h3>MicroPay AI Gateway</h3>
+        <div class="tagline">Stripe Connect для агентских API. Per-token, per-call, sub-cent.</div>
+        <div class="desc">Прокси-слой между AI-агентом и любым LLM/data/compute API. Сервер выдаёт <code>402 Payment Required</code>, агент подписывает EIP-3009, проксирует запрос. Owner маркетплейса собирает комиссию. Никаких подписок, никаких API-ключей — pay-as-you-go on the wire.</div>
+        <div class="mvp"><strong>MVP scope</strong>Express middleware для x402 sell-side + buy-side SDK для агента. Один live endpoint, например, прокси GPT-4 с биллингом $0.00003 / 1k tokens. Деплой за выходные.</div>
+      </div>
+      <div class="stack">
+        <div class="stack-block">
+          <div class="stack-label">Primitives</div>
+          <div class="chip-row">
+            <span class="chip circle">Nanopayments</span>
+            <span class="chip circle">x402</span>
+            <span class="chip circle">Gateway</span>
+          </div>
+        </div>
+        <div class="stack-block">
+          <div class="stack-label">Skills</div>
+          <div class="chip-row">
+            <span class="chip ai">use-gateway</span>
+            <span class="chip ai">use-usdc</span>
+          </div>
+        </div>
+        <div class="diff">Сложность <span class="bar"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span> 2 days</div>
+      </div>
+    </div>
+
+    <!-- IDEA 2 -->
+    <div class="idea">
+      <div class="num">02</div>
+      <div class="body">
+        <h3>Stripe-for-Agents</h3>
+        <div class="tagline">Бюджеты, allowlists и аудит для AI-агентов с собственным кошельком.</div>
+        <div class="desc">Dashboard для команды, у которой бегают N агентов: каждому — отдельный passkey-wallet с allowlist-модулем (только разрешённые контракты/адреса), дневной лимит, real-time лог транзакций. Решает реальную проблему: «как дать GPT доступ к деньгам и не разориться».</div>
+        <div class="mvp"><strong>MVP scope</strong>Web-консоль (Next.js + Modular Wallets SDK), создание агентского кошелька с allowlist-модулем, dashboard с лимитами, фид через Event Monitoring webhooks. Compliance Engine для скрининга outbound transactions.</div>
+      </div>
+      <div class="stack">
+        <div class="stack-block">
+          <div class="stack-label">Primitives</div>
+          <div class="chip-row">
+            <span class="chip circle">Modular Wallets</span>
+            <span class="chip circle">Allowlist Module</span>
+            <span class="chip circle">Gateway</span>
+            <span class="chip circle">Compliance Engine</span>
+          </div>
+        </div>
+        <div class="stack-block">
+          <div class="stack-label">Skills</div>
+          <div class="chip-row">
+            <span class="chip ai">use-modular-wallets</span>
+            <span class="chip ai">use-circle-wallets</span>
+          </div>
+        </div>
+        <div class="diff">Сложность <span class="bar"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span> 3-4 days</div>
+      </div>
+    </div>
+
+    <!-- IDEA 3 -->
+    <div class="idea">
+      <div class="num">03</div>
+      <div class="body">
+        <h3>v0-for-Solidity</h3>
+        <div class="tagline">Natural-language → задеплоенный DApp на Arc за 30 секунд.</div>
+        <div class="desc">Chat-интерфейс типа v0.dev, но генерирует и деплоит смарт-контракты. «Loyalty с 5% cashback в USDC» → MCP-сервер возвращает код по template, Circle Contracts API деплоит на Arc, dev-controlled wallet платит gas. Юзер получает адрес контракта и UI для админки.</div>
+        <div class="mvp"><strong>MVP scope</strong>Next.js chat UI, оборачивает Circle MCP server, использует templates (ERC-20/721/1155 + Airdrop), деплой через Smart Contract Platform API, авто-генерация admin-панели для read/write функций.</div>
+      </div>
+      <div class="stack">
+        <div class="stack-block">
+          <div class="stack-label">Primitives</div>
+          <div class="chip-row">
+            <span class="chip circle">Smart Contract Platform</span>
+            <span class="chip circle">Templates</span>
+            <span class="chip arc">Arc</span>
+            <span class="chip circle">Dev Wallets</span>
+          </div>
+        </div>
+        <div class="stack-block">
+          <div class="stack-label">Skills + MCP</div>
+          <div class="chip-row">
+            <span class="chip ai">Circle MCP</span>
+            <span class="chip ai">use-smart-contract-platform</span>
+            <span class="chip ai">use-arc</span>
+          </div>
+        </div>
+        <div class="diff">Сложность <span class="bar"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span> 3 days</div>
+      </div>
+    </div>
+
+    <!-- IDEA 4 -->
+    <div class="idea">
+      <div class="num">04</div>
+      <div class="body">
+        <h3>PayLink Universal</h3>
+        <div class="tagline">Stripe Payment Links для USDC. Любая цепь → ваш Arc-аккаунт.</div>
+        <div class="desc">Создаёте ссылку <code>pay.example/r/abc?amt=42&memo=...</code>. Плательщик открывает, App Kit определяет его кошелёк/цепь, через Gateway или CCTP отправляет USDC, settle на Arc-аккаунт мерчанта. На стороне мерчанта — webhook с payment intent ID. Чек, QR, recurring — всё стандартное.</div>
+        <div class="mvp"><strong>MVP scope</strong>Next.js: создание ссылки с amount/memo, страница checkout с App Kit виджетом, Managed Payments continuous intent на сервере, webhook handler, dashboard с историей.</div>
+      </div>
+      <div class="stack">
+        <div class="stack-block">
+          <div class="stack-label">Primitives</div>
+          <div class="chip-row">
+            <span class="chip circle">App Kit</span>
+            <span class="chip circle">Managed Payments</span>
+            <span class="chip circle">Gateway</span>
+            <span class="chip circle">CCTP</span>
+          </div>
+        </div>
+        <div class="stack-block">
+          <div class="stack-label">Skills</div>
+          <div class="chip-row">
+            <span class="chip ai">bridge-stablecoin</span>
+            <span class="chip ai">use-gateway</span>
+          </div>
+        </div>
+        <div class="diff">Сложность <span class="bar"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span> 2 days</div>
+      </div>
+    </div>
+
+    <!-- IDEA 5 -->
+    <div class="idea">
+      <div class="num">05</div>
+      <div class="body">
+        <h3>Streampay</h3>
+        <div class="tagline">Зарплата по секундам. Sablier, но для USDC и без gas-боли.</div>
+        <div class="desc">Контракт-стример на Arc: <code>startStream(recipient, ratePerSecond, end)</code>, получатель в любой момент клеймит накопленное. Так как Arc даёт sub-second finality и USDC как gas, payroll за реальное отработанное время становится дешевле обычного банковского перевода.</div>
+        <div class="mvp"><strong>MVP scope</strong>Solidity-контракт на Arc Testnet (Foundry), Next.js UI для создания стримов с modular wallet, dashboard для получателей с claim-кнопкой, Paymaster чтоб gas платился из самого стрима в USDC.</div>
+      </div>
+      <div class="stack">
+        <div class="stack-block">
+          <div class="stack-label">Primitives</div>
+          <div class="chip-row">
+            <span class="chip arc">Arc · Solidity</span>
+            <span class="chip circle">Paymaster</span>
+            <span class="chip circle">Modular Wallets</span>
+            <span class="chip circle">Event Monitoring</span>
+          </div>
+        </div>
+        <div class="stack-block">
+          <div class="stack-label">Skills</div>
+          <div class="chip-row">
+            <span class="chip ai">use-arc</span>
+            <span class="chip ai">use-modular-wallets</span>
+          </div>
+        </div>
+        <div class="diff">Сложность <span class="bar"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span> 4 days</div>
+      </div>
+    </div>
+
+    <!-- IDEA 6 -->
+    <div class="idea">
+      <div class="num">06</div>
+      <div class="body">
+        <h3>Drop-in Wallet Button</h3>
+        <div class="tagline">«Pay with USDC» виджет для любого SaaS в одну строку.</div>
+        <div class="desc">Один <code>&lt;script&gt;</code> тег → на сайте появляется кнопка. Пользователь логинится Google/Apple, получает modular wallet с passkey, может оплачивать USDC. Gas Station покрывает gas (или USDC paymaster), мерчант получает payment intent. Embeddable как Stripe Elements.</div>
+        <div class="mvp"><strong>MVP scope</strong>Vanilla JS-виджет (~30KB), бэкенд на Cloudflare Workers для intent-ов, integration docs. Демо-сайт с «купить кофе за $4 USDC». Используем Web SDK для Modular Wallets.</div>
+      </div>
+      <div class="stack">
+        <div class="stack-block">
+          <div class="stack-label">Primitives</div>
+          <div class="chip-row">
+            <span class="chip circle">Modular Wallets (Web SDK)</span>
+            <span class="chip circle">Gas Station</span>
+            <span class="chip circle">Paymaster</span>
+            <span class="chip circle">Managed Payments</span>
+          </div>
+        </div>
+        <div class="stack-block">
+          <div class="stack-label">Skills</div>
+          <div class="chip-row">
+            <span class="chip ai">use-modular-wallets</span>
+          </div>
+        </div>
+        <div class="diff">Сложность <span class="bar"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span> 2 days</div>
+      </div>
+    </div>
+
+    <!-- IDEA 7 -->
+    <div class="idea">
+      <div class="num">07</div>
+      <div class="body">
+        <h3>TipStream</h3>
+        <div class="tagline">Стримерские тиры по секундам просмотра — gas-free, sub-cent.</div>
+        <div class="desc">Зритель депонит $5 USDC, включает «tip-mode» на стриме за $0.001/sec, пока смотрит. Подписи offchain через x402, settlement раз в N минут через Gateway. Стример видит pool в реальном времени. Идеальный fit для Twitch/YouTube/Substack-альтернатив, где CC-rails не работают на $0.05 чаевые.</div>
+        <div class="mvp"><strong>MVP scope</strong>Браузерный плеер на React, виджет «start tipping», OBS-overlay с pool counter. Sell-side x402 middleware, agent-style buy-side в браузере. Демо со стримером на тестовых USDC.</div>
+      </div>
+      <div class="stack">
+        <div class="stack-block">
+          <div class="stack-label">Primitives</div>
+          <div class="chip-row">
+            <span class="chip circle">Nanopayments</span>
+            <span class="chip circle">x402</span>
+            <span class="chip circle">Gateway</span>
+            <span class="chip circle">User-controlled Wallets</span>
+          </div>
+        </div>
+        <div class="stack-block">
+          <div class="stack-label">Skills</div>
+          <div class="chip-row">
+            <span class="chip ai">use-gateway</span>
+            <span class="chip ai">use-user-controlled-wallets</span>
+          </div>
+        </div>
+        <div class="diff">Сложность <span class="bar"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span> 3 days</div>
+      </div>
+    </div>
+
+    <!-- IDEA 8 -->
+    <div class="idea">
+      <div class="num">08</div>
+      <div class="body">
+        <h3>Onchain Cashback Engine</h3>
+        <div class="tagline">Loyalty-программа за час: ERC-1155 reward + event-driven кэшбэк.</div>
+        <div class="desc">Мерчант подключает свой USDC payment intent, эмитит ERC-1155 reward токены. Любая покупка → Event Monitoring webhook → дев-контролируемый кошелёк мерчанта минтит N токенов клиенту. Клиент в любой момент redeem'ит за USDC через Gateway, тратит на любой цепи.</div>
+        <div class="mvp"><strong>MVP scope</strong>Deploy ERC-1155 reward template на Arc, backend на Node.js слушает webhook'и Managed Payments → автоматически минтит токены. Merchant-консоль (Next.js) с настройкой rate (X% cashback).</div>
+      </div>
+      <div class="stack">
+        <div class="stack-block">
+          <div class="stack-label">Primitives</div>
+          <div class="chip-row">
+            <span class="chip circle">Smart Contracts Templates</span>
+            <span class="chip circle">Event Monitoring</span>
+            <span class="chip circle">Managed Payments</span>
+            <span class="chip arc">Arc</span>
+          </div>
+        </div>
+        <div class="stack-block">
+          <div class="stack-label">Skills</div>
+          <div class="chip-row">
+            <span class="chip ai">use-smart-contract-platform</span>
+            <span class="chip ai">use-developer-controlled-wallets</span>
+          </div>
+        </div>
+        <div class="diff">Сложность <span class="bar"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span> 3 days</div>
+      </div>
+    </div>
+
+    <!-- IDEA 9 -->
+    <div class="idea">
+      <div class="num">09</div>
+      <div class="body">
+        <h3>Agent Job Escrow</h3>
+        <div class="tagline">Upwork для AI-агентов с on-chain escrow и milestone-платежами.</div>
+        <div class="desc">Заказчик постит задачу с бюджетом, депонирует USDC в escrow-контракт на Arc. AI-агент (или человек) берёт работу, на промежуточных milestone'ах получает stream через x402. По завершению — release или dispute (с view-key аудитом через будущий privacy module).</div>
+        <div class="mvp"><strong>MVP scope</strong>Solidity escrow на Arc с функциями deposit/release/dispute, dev-controlled кошелёк как арбитр (сначала ручной, позже AI-судья), Next.js marketplace UI. x402 для milestone-стримов агентам.</div>
+      </div>
+      <div class="stack">
+        <div class="stack-block">
+          <div class="stack-label">Primitives</div>
+          <div class="chip-row">
+            <span class="chip arc">Arc · Solidity</span>
+            <span class="chip circle">Modular Wallets</span>
+            <span class="chip circle">Nanopayments</span>
+            <span class="chip circle">Compliance Engine</span>
+          </div>
+        </div>
+        <div class="stack-block">
+          <div class="stack-label">Skills</div>
+          <div class="chip-row">
+            <span class="chip ai">use-arc</span>
+            <span class="chip ai">use-gateway</span>
+            <span class="chip ai">use-modular-wallets</span>
+          </div>
+        </div>
+        <div class="diff">Сложность <span class="bar"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span> 5 days</div>
+      </div>
+    </div>
+
+    <!-- IDEA 10 -->
+    <div class="idea">
+      <div class="num">10</div>
+      <div class="body">
+        <h3>Multi-Currency Invoice</h3>
+        <div class="tagline">B2B-инвойс в EUR, оплата USDC, settlement в EURC. Без посредников.</div>
+        <div class="desc">Поставщик выставляет счёт в EUR, плательщик платит USDC с любой цепи, Arc Stablecoin Services делает FX в EURC и settle на EURC-баланс получателя. Решает реальную боль freelance / cross-border B2B: SWIFT + WISE + конвертация × 3-7 дней → 5 секунд.</div>
+        <div class="mvp"><strong>MVP scope</strong>Next.js + Managed Payments с continuous intent в EUR, App Kit для swap USDC→EURC на Arc, экспорт PDF-инвойса. Тут critical: Arc сейчас testnet, так что MVP на тестовых EURC/USDC — но архитектурно production-ready.</div>
+      </div>
+      <div class="stack">
+        <div class="stack-block">
+          <div class="stack-label">Primitives</div>
+          <div class="chip-row">
+            <span class="chip arc">Arc Stablecoin Services</span>
+            <span class="chip circle">App Kit (Swap)</span>
+            <span class="chip circle">Managed Payments</span>
+            <span class="chip circle">EURC</span>
+          </div>
+        </div>
+        <div class="stack-block">
+          <div class="stack-label">Skills</div>
+          <div class="chip-row">
+            <span class="chip ai">use-arc</span>
+            <span class="chip ai">use-usdc</span>
+          </div>
+        </div>
+        <div class="diff">Сложность <span class="bar"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span> 3 days</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── COMPARE TABLE ─────────────────────────────────── -->
+<section>
+  <div class="section-head">
+    <div class="section-tag">03 — At a glance</div>
+    <h2>Сводная по 10 идеям</h2>
+    <p>Если есть выходные — идите за <strong>#01</strong>, <strong>#04</strong> или <strong>#06</strong>. Если есть неделя и амбиция — <strong>#02</strong> или <strong>#09</strong> создают защитимую категорию.</p>
+  </div>
+
+  <table class="compare">
+    <thead>
+      <tr><th>#</th><th>Идея</th><th>Аудитория</th><th>USP</th><th>Время</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>01</td><td>MicroPay AI Gateway</td><td>AI-агенты, API-провайдеры</td><td>Sub-cent биллинг на лету, без подписок</td><td>2d</td></tr>
+      <tr><td>02</td><td>Stripe-for-Agents</td><td>Команды с AI-агентами</td><td>Безопасность + аудит для agentic spending</td><td>3-4d</td></tr>
+      <tr><td>03</td><td>v0-for-Solidity</td><td>Web2-разработчики</td><td>Деплой DApp без знания Solidity</td><td>3d</td></tr>
+      <tr><td>04</td><td>PayLink Universal</td><td>Мерчанты, фрилансеры</td><td>Multichain Stripe Links для USDC</td><td>2d</td></tr>
+      <tr><td>05</td><td>Streampay</td><td>Контракторы, payroll-системы</td><td>Per-second salary на USDC-as-gas цепи</td><td>4d</td></tr>
+      <tr><td>06</td><td>Drop-in Wallet Button</td><td>SaaS-разработчики</td><td>One-line wallet integration через passkey</td><td>2d</td></tr>
+      <tr><td>07</td><td>TipStream</td><td>Стримеры, creator-платформы</td><td>Per-second tips где CC rails мертвы</td><td>3d</td></tr>
+      <tr><td>08</td><td>Onchain Cashback</td><td>D2C-бренды, e-commerce</td><td>Loyalty без CRM-кошмара, cross-chain redeem</td><td>3d</td></tr>
+      <tr><td>09</td><td>Agent Job Escrow</td><td>Agentic marketplaces</td><td>Trustless milestone payments для AI-работ</td><td>5d</td></tr>
+      <tr><td>10</td><td>Multi-Currency Invoice</td><td>Freelance, cross-border B2B</td><td>EUR↔USDC↔EURC за секунды, не за дни</td><td>3d</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ─── CTA ───────────────────────────────────────────── -->
+<section class="cta">
+  <div class="cta-inner">
+    <div>
+      <h2>Стартовать <em>сегодня</em></h2>
+      <p>Самый короткий путь — поставить Circle MCP в Cursor/Claude Code и Circle Skills, потом начать с любой идеи выше. MCP сразу даёт live SDK-сигнатуры и адреса контрактов, skills дают архитектурные паттерны.</p>
+      <p>Arc Testnet и Sepolia (USDC) бесплатные — можно прокатить полную flow без вложений. EURC и Solana USDC тоже на тестнете.</p>
+    </div>
+    <div>
+      <pre><span class="cm"># Установить Circle Skills (Claude Code)</span>
+<span class="cmd">/plugin</span> marketplace add circlefin/skills
+<span class="cmd">/plugin</span> install circle-skills@circle
+
+<span class="cm"># MCP в Claude Code или Cursor</span>
+claude mcp add --transport http <span class="cmd">circle</span> \
+  https://api.circle.com/v1/codegen/mcp \
+  --scope user
+
+<span class="cm"># Faucet для Arc Testnet</span>
+<span class="cmd">→</span> faucet.circle.com</pre>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>Brief · Arc × Circle vibe-code map</span>
+  <span>11.05.2026</span>
+</footer>
+
+</body>
+</html>
