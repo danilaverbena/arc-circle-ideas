@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Arc × Circle — Идеи v2 (deeper cut)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600;9..144,800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0a0e1a;
+  --paper: #fbfaf7;
+  --paper-2: #f3f1eb;
+  --rule: #d8d2c4;
+  --muted: #5a5a55;
+  --accent: #0048ff;
+  --arc: #ff5722;
+  --euro: #2e8d4a;
+  --gold: #c89d3f;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.55;
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── HERO ─────────────────────────────────────────── */
+.hero {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 8vh 6vw 9vh;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(900px circle at 80% 20%, rgba(46, 141, 74, 0.15), transparent 60%),
+    radial-gradient(700px circle at 15% 80%, rgba(200, 157, 63, 0.15), transparent 55%);
+  pointer-events: none;
+}
+.hero-inner { max-width: 1180px; margin: 0 auto; position: relative; }
+.kicker {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 28px;
+  display: flex; gap: 14px; align-items: center;
+}
+.kicker .dot { width: 6px; height: 6px; background: var(--euro); border-radius: 50%; box-shadow: 0 0 12px var(--euro); }
+.kicker a { color: rgba(255,255,255,0.7); text-decoration: none; border-bottom: 1px dotted rgba(255,255,255,0.3); }
+.kicker a:hover { color: var(--paper); }
+.hero h1 {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: clamp(2.6rem, 6.8vw, 5.8rem);
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+  margin-bottom: 36px;
+  max-width: 20ch;
+}
+.hero h1 em {
+  font-style: italic;
+  background: linear-gradient(120deg, var(--euro) 0%, var(--gold) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 400;
+}
+.hero p.lead {
+  font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+  max-width: 64ch;
+  color: rgba(255,255,255,0.78);
+  font-weight: 300;
+  line-height: 1.6;
+}
+.hero-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 32px;
+  margin-top: 64px;
+  padding-top: 36px;
+  border-top: 1px solid rgba(255,255,255,0.12);
+}
+.hero-meta div span {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 8px;
+}
+.hero-meta div strong {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-size: 1.15rem;
+  color: var(--paper);
+}
+
+/* ── SECTION SCAFFOLD ─────────────────────────────── */
+section { padding: 8vh 6vw; max-width: 1180px; margin: 0 auto; }
+.section-head { margin-bottom: 56px; max-width: 760px; }
+.section-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--euro);
+  margin-bottom: 14px;
+}
+.section-head h2 {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 18px;
+}
+.section-head p {
+  font-size: 1.05rem;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+/* ── NEW PRIMITIVES GRID ────────────────────────────── */
+.new-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+}
+.new {
+  background: var(--paper);
+  padding: 32px 30px;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.new .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.new h3 {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 1.4rem;
+  line-height: 1.2;
+}
+.new p {
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.new .badge {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 4px 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: 3px;
+}
+.new.fx .badge { background: rgba(46,141,74,0.12); color: var(--euro); }
+.new.compliance .badge { background: rgba(200,157,63,0.15); color: var(--gold); }
+.new.fees .badge { background: rgba(255,87,34,0.1); color: var(--arc); }
+.new.samples .badge { background: rgba(0,72,255,0.1); color: var(--accent); }
+
+/* ── IDEAS ────────────────────────────────────────── */
+.ideas {
+  background: var(--paper-2);
+  padding-top: 9vh;
+  padding-bottom: 9vh;
+}
+.ideas-wrap { max-width: 1180px; margin: 0 auto; padding: 0 6vw; }
+
+.idea {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  margin-bottom: 22px;
+  padding: 44px 48px;
+  display: grid;
+  grid-template-columns: 80px 1fr 280px;
+  gap: 40px;
+  transition: border-color 0.3s, transform 0.3s;
+  position: relative;
+}
+.idea:hover { border-color: var(--ink); }
+.idea .num {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: 3.5rem;
+  line-height: 1;
+  color: var(--euro);
+  letter-spacing: -0.04em;
+}
+.idea .body h3 {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 1.85rem;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin-bottom: 6px;
+}
+.idea .tagline {
+  font-size: 1rem;
+  color: var(--euro);
+  margin-bottom: 16px;
+  font-style: italic;
+  font-family: 'Fraunces', serif;
+}
+.idea .desc {
+  font-size: 0.98rem;
+  color: var(--ink);
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+.idea .mvp {
+  font-size: 0.9rem;
+  color: var(--muted);
+  border-left: 2px solid var(--euro);
+  padding: 6px 0 6px 16px;
+  line-height: 1.6;
+}
+.idea .mvp strong { color: var(--ink); font-weight: 600; display: block; margin-bottom: 2px; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; }
+.idea .moat {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-top: 12px;
+  padding-left: 18px;
+  line-height: 1.55;
+  position: relative;
+}
+.idea .moat::before {
+  content: '⚐';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+}
+
+.idea .stack {
+  border-left: 1px solid var(--rule);
+  padding-left: 28px;
+  display: flex; flex-direction: column; gap: 16px;
+}
+.stack-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.stack-block { display: flex; flex-direction: column; gap: 6px; }
+.chip-row { display: flex; flex-wrap: wrap; gap: 5px; }
+.chip {
+  display: inline-block;
+  padding: 4px 9px;
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--ink);
+}
+.chip.arc { background: rgba(255,87,34,0.08); border-color: rgba(255,87,34,0.3); color: var(--arc); }
+.chip.circle { background: rgba(0,72,255,0.08); border-color: rgba(0,72,255,0.3); color: var(--accent); }
+.chip.euro { background: rgba(46,141,74,0.1); border-color: rgba(46,141,74,0.35); color: var(--euro); }
+.chip.compliance { background: rgba(200,157,63,0.12); border-color: rgba(200,157,63,0.4); color: var(--gold); }
+.chip.ai { background: rgba(106,61,240,0.08); border-color: rgba(106,61,240,0.3); color: #6a3df0; }
+
+.diff {
+  display: flex; gap: 6px; align-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--ink);
+}
+.bar { display: inline-flex; gap: 2px; }
+.bar i { width: 4px; height: 12px; background: var(--rule); border-radius: 1px; display: inline-block; }
+.bar i.on { background: var(--ink); }
+
+/* ── FOOTER / CTA ─────────────────────────────────── */
+.cta {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 10vh 6vw;
+}
+.cta-inner { max-width: 1180px; margin: 0 auto; }
+.cta h2 {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 22px;
+  max-width: 20ch;
+}
+.cta h2 em { font-style: italic; color: var(--euro); font-weight: 400; }
+.cta p { color: rgba(255,255,255,0.7); margin-bottom: 14px; max-width: 60ch; font-size: 1.05rem; }
+.cta .links {
+  margin-top: 36px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+.cta .links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 24px;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 3px;
+  color: var(--paper);
+  text-decoration: none;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  transition: background 0.2s, border-color 0.2s;
+}
+.cta .links a:hover { background: rgba(255,255,255,0.08); border-color: var(--euro); }
+.cta .links a.primary { background: var(--euro); border-color: var(--euro); color: var(--paper); }
+.cta .links a.primary:hover { background: #237939; border-color: #237939; }
+
+footer {
+  padding: 30px 6vw;
+  background: var(--ink);
+  color: rgba(255,255,255,0.4);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  display: flex; justify-content: space-between;
+}
+
+@media (max-width: 900px) {
+  .idea { grid-template-columns: 1fr; padding: 32px 28px; gap: 24px; }
+  .idea .stack { border-left: none; border-top: 1px solid var(--rule); padding-left: 0; padding-top: 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ─── HERO ──────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="kicker">
+      <span class="dot"></span>
+      Episode 02 · Deeper Cut ·
+      <a href="./index.html">← вернуться к v1</a>
+    </div>
+    <h1>Восемь идей, которые <em>не лежат на поверхности</em></h1>
+    <p class="lead">Второй проход по документации Arc и Circle вытащил пять примитивов, мимо которых легко пройти: StableFX (RFQ-движок на Arc для USDC↔EURC), Compliance Engine (AML/CTF API), Stable Fee Design (предсказуемые ~$0.01/tx через EWMA), Sample Apps на Arc и Circle Mint Crypto Deposits с continuous payment intents. Это раскрывает новый класс идей — институциональный fintech, compliance-as-a-service и high-frequency stablecoin-логику, которые не вмещались в первый бриф.</p>
+    <div class="hero-meta">
+      <div><span>Новые primitives</span><strong>5 ранее не освещённых</strong></div>
+      <div><span>Sample apps на Arc</span><strong>5 reference-проектов</strong></div>
+      <div><span>Идеи в этом эпизоде</span><strong>8 (нумерация 11-18)</strong></div>
+      <div><span>Главный шифт</span><strong>от consumer → institutional</strong></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── NEW PRIMITIVES ─────────────────────────────── -->
+<section>
+  <div class="section-head">
+    <div class="section-tag">01 — Что упустили в v1</div>
+    <h2>Пять примитивов, открывающих новый класс приложений</h2>
+    <p>В первом брифе фокус был на потребительских flows (платежи, кошельки, AI-агентский коммерс). Эти пять компонентов смещают вектор в сторону institutional fintech, compliance-tech и высокочастотной логики.</p>
+  </div>
+
+  <div class="new-grid">
+    <div class="new fx">
+      <div class="label">Institutional FX</div>
+      <h3>StableFX</h3>
+      <p>RFQ-движок на Arc: USDC↔EURC сейчас, с планом на local stablecoins. Off-chain execution + on-chain escrow settlement, payment-versus-payment гарантии, sub-second finality. Доступ через API/SDK для payment providers, fintech, OTC desks.</p>
+      <span class="badge">permissioned</span>
+    </div>
+    <div class="new compliance">
+      <div class="label">Reg-tech</div>
+      <h3>Compliance Engine</h3>
+      <p>Real-time AML/CTF screening, кастомные правила, allowlists/blocklists, alert investigation, отчётность. Подключается к Circle Wallets, доступен на testnet и mainnet (eligible customers).</p>
+      <span class="badge">gated access</span>
+    </div>
+    <div class="new fees">
+      <div class="label">Predictable economics</div>
+      <h3>Stable Fee Design</h3>
+      <p>Base fee target ~$0.01/tx, EWMA-сглаживание вместо EIP-1559 per-block. Hard ceiling 1e-3 USDC/gas, 20M gas/sec throughput. Можно квотировать стоимость пользователю заранее — game changer для биллинга.</p>
+      <span class="badge">arc-specific</span>
+    </div>
+    <div class="new samples">
+      <div class="label">Reference architecture</div>
+      <h3>Sample Apps</h3>
+      <p>Arc commerce (Next.js + Supabase), multichain wallet (Gateway), AI escrow (Refund Protocol), fintech treasury (Bridge Kit + Gateway), P2P with passkeys. Открытый исходник — отличная стартовая точка для fork-and-vibe-code.</p>
+      <span class="badge">open source</span>
+    </div>
+    <div class="new fx">
+      <div class="label">Merchant rails</div>
+      <h3>Circle Mint Deposits</h3>
+      <p>Continuous (стабильный адрес) vs transient (одноразовый checkout с amount + expiry) payment intents. USDC и EURC через Crypto Deposits API. Webhooks для notifications. Удобно для billing.</p>
+      <span class="badge">production-ready</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── IDEAS ───────────────────────────────────────── -->
+<div class="ideas">
+  <div class="ideas-wrap">
+    <div class="section-head">
+      <div class="section-tag">02 — Idea pack v2</div>
+      <h2>Восемь идей под новые primitives</h2>
+      <p>Все восемь используют как минимум один из «свежих» примитивов выше. Каждая — с MVP-скоупом, привязанным стеком и пометкой <span style="color:var(--gold)">⚐ moat</span> о том, что защищает идею от копирования.</p>
+    </div>
+
+    <!-- IDEA 11 -->
+    <div class="idea">
+      <div class="num">11</div>
+      <div class="body">
+        <h3>EuroPay Corridor</h3>
+        <div class="tagline">Wise для freelance: EUR на карту фрилансера за 5 секунд, не 5 дней.</div>
+        <div class="desc">Заказчик из Лондона платит USDC, контракт автоматически вызывает StableFX (USDC → EURC RFQ), фрилансер в Берлине получает EURC и через Circle Mint выводит в SEPA. Весь корридор: 5-10 секунд, settlement risk = ноль (PvP escrow), курс прозрачен, без correspondent banking.</div>
+        <div class="mvp"><strong>MVP scope</strong>Next.js маркетплейс задач, StableFX taker API для котировок, dev-controlled wallet как executor, Managed Payments continuous intent для EUR-вывода. Sandbox: USDC Sepolia → EURC Arc Testnet → mocked SEPA.</div>
+        <div class="moat">StableFX permissioned: нужен API key и vetting. Кто первый интегрируется в нишу remote-work payments — забирает категорию.</div>
+      </div>
+      <div class="stack">
+        <div class="stack-block">
+          <div class="stack-label">Primitives</div>
+          <div class="chip-row">
+            <span class="chip euro">StableFX</span>
+            <span class="chip euro">EURC</span>
+            <span class="chip arc">Arc</span>
+            <span class="chip circle">Managed Payments</span>
+          </div>
+        </div>
+        <div class="stack-block">
+          <div class="stack-label">Skills</div>
+          <div class="chip-row">
+            <span class="chip ai">use-arc</span>
+            <span class="chip ai">use-dev-controlled-wallets</span>
+          </div>
+        </div>
+        <div class="diff">Сложность <span class="bar"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span> 4 days</div>
+      </div>
+    </div>
+
+    <!-- IDEA 12 -->
+    <div class="idea">
+      <div class="num">12</div>
+      <div class="body">
+        <h3>Compliance Layer SDK</h3>
+        <div class="tagline">Stripe Radar для on-chain транзакций. Drop-in AML/CTF за одну строку.</div>
+        <div class="desc">npm-пакет <code>@yourorg/onchain-compliance</code>: оборачивает любую outgoing транзакцию, делает screen через Circle Compliance Engine, возвращает <code>{ approved, riskScore, reason }</code>. Pre-built dashboard для alert investigation, кастомные rules через YAML, allowlist/blocklist sync.</div>
+        <div class="mvp"><strong>MVP scope</strong>TypeScript SDK + Express middleware, Compliance Engine API wrapper, React-консоль для алертов и rules editor. Запрос eligibility у Circle через форму, начать с tx screening на Arc Testnet.</div>
+        <div class="moat">Доступ к Compliance Engine — gated. Кто первый сделает удобный wrapper для DeFi-проектов, становится дефолтным compliance-слоем экосистемы Arc.</div>
+      </div>
+      <div class="stack">
+        <div class="stack-block">
+          <div class="stack-label">Primitives</div>
+          <div class="chip-row">
+            <span class="chip compliance">Compliance Engine</span>
+            <span class="chip circle">Wallets API</span>
+            <span class="chip circle">Event Monitoring</span>
+          </div>
+        </div>
+        <div class="stack-block">
+          <div class="stack-label">Skills</div>
+          <div class="chip-row">
+            <span class="chip ai">use-circle-wallets</span>
+            <span class="chip ai">use-dev-controlled-wallets</span>
+          </div>
+        </div>
+        <div class="diff">Сложность <span class="bar"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span> 4 days</div>
+      </div>
+    </div>
+
+    <!-- IDEA 13 -->
+    <div class="idea">
+      <div class="num">13</div>
+      <div class="body">
+        <h3>TreasuryAutoPilot</h3>
+        <div class="tagline">CFO-бот для multichain казначейства. Поддерживает целевые allocations 24/7.</div>
+        <div class="desc">Forkнутый Arc fintech sample app, превращённый в SaaS: финдиректор задаёт target allocation («30% Arc, 40% Base, 20% Solana, 10% Arbitrum»), AI-бот мониторит балансы dev-controlled wallets через Event Monitoring и ребалансирует через Gateway / Bridge Kit. Audit log + Compliance Engine screening для каждого movement.</div>
+        <div class="mvp"><strong>MVP scope</strong>Next.js dashboard (fork samples), dev-controlled wallet set, scheduler (cron) для balance polling, decision engine на правилах (опционально на LLM), Gateway transfers как actuator. Slack alerts через webhooks.</div>
+        <div class="moat">Использует AI + предсказуемые fees Arc для high-frequency rebalancing — это работает только когда tx стоит $0.01, не $5. На любой L1, кроме Arc, экономика не сходится.</div>
+      </div>
+      <div class="stack">
+        <div class="stack-block">
+          <div class="stack-label">Primitives</div>
+          <div class="chip-row">
+            <span class="chip arc">Arc · Stable Fees</span>
+            <span class="chip circle">Gateway</span>
+            <span class="chip circle">Bridge Kit</span>
+            <span class="chip circle">Dev Wallets</span>
+            <span class="chip compliance">Compliance Engine</span>
+          </div>
+        </div>
+        <div class="stack-block">
+          <div class="stack-label">Skills</div>
+          <div class="chip-row">
+            <span class="chip ai">use-gateway</span>
+            <span class="chip ai">bridge-stablecoin</span>
+            <span class="chip ai">use-arc</span>
+          </div>
+        </div>
+        <div class="diff">Сложность <span class="bar"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span> 5 days</div>
+      </div>
+    </div>
+
+    <!-- IDEA 14 -->
+    <div class="idea">
+      <div class="num">14</div>
+      <div class="body">
+        <h3>AI Escrow Judge</h3>
+        <div class="tagline">Upwork mediator на стероидах: AI-аудитор оценивает работу за минуты, не дни.</div>
+        <div class="desc">Расширение Arc Escrow sample app: заказчик задаёт acceptance criteria («deploy contract X, написать тесты, gas usage < Y»), фрилансер сдаёт работу. AI-агент с GPT-4 / Claude автоматически прогоняет проверку (запуск тестов, верификация bytecode через Circle Contracts API, audit logs), при success — release через Refund Protocol, при fail — dispute escalation.</div>
+        <div class="mvp"><strong>MVP scope</strong>Fork Arc Escrow sample, добавить AI judge endpoint (запускает hardhat-тесты в Docker), Solidity escrow с release/refund/escalate, Next.js dashboard для buyer + seller. Demo: deploy ERC-20 контракта с 10 USDC награды.</div>
+        <div class="moat">Refund Protocol только что появился как primitive в sample apps Arc — окно «первого мувера» открыто. Категория «AI-судья + on-chain settlement» вообще не occupied.</div>
+      </div>
+      <div class="stack">
+        <div class="stack-block">
+          <div class="stack-label">Primitives</div>
+          <div class="chip-row">
+            <span class="chip arc">Arc Escrow Sample</span>
+            <span class="chip arc">Refund Protocol</span>
+            <span class="chip circle">Contract Platform</span>
+            <span class="chip circle">Modular Wallets</span>
+          </div>
+        </div>
+        <div class="stack-block">
+          <div class="stack-label">Skills</div>
+          <div class="chip-row">
+            <span class="chip ai">use-smart-contract-platform</span>
+            <span class="chip ai">use-arc</span>
+          </div>
+        </div>
+        <div class="diff">Сложность <span class="bar"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span> 6 days</div>
+      </div>
+    </div>
+
+    <!-- IDEA 15 -->
+    <div class="idea">
+      <div class="num">15</div>
+      <div class="body">
+        <h3>Stablecoin Arbitrage Engine</h3>
+        <div class="tagline">HFT-арбитраж между USDC, EURC и future local stables через StableFX.</div>
+        <div class="desc">Бот мониторит spread USDC/EURC между централизованными площадками (Binance, OKX), Uniswap-подобными DEX, и StableFX RFQ. При spread > threshold открывает trade через taker API, settlement через on-chain escrow на Arc. Низкая стоимость газа ($0.01) делает рентабельной арбитраж с маржой 1-2bps.</div>
+        <div class="mvp"><strong>MVP scope</strong>Node.js бот с CEX API клиентами (CCXT), StableFX taker integration, dev-controlled wallet на Arc как execution layer, Postgres для trade log. Grafana dashboard для PnL.</div>
+        <div class="moat">Нужен StableFX API key (permissioned) + connections к CEX. Высокий operational moat — не воспроизводимо за один уикенд кем угодно. После пуска local stablecoins в StableFX рынок арбитража взрывается.</div>
+      </div>
+      <div class="stack">
+        <div class="stack-block">
+          <div class="stack-label">Primitives</div>
+          <div class="chip-row">
+            <span class="chip euro">StableFX</span>
+            <span class="chip euro">EURC</span>
+            <span class="chip arc">Arc · sub-second finality</span>
+            <span class="chip circle">Dev Wallets</span>
+          </div>
+        </div>
+        <div class="stack-block">
+          <div class="stack-label">Skills</div>
+          <div class="chip-row">
+            <span class="chip ai">use-arc</span>
+            <span class="chip ai">use-dev-controlled-wallets</span>
+          </div>
+        </div>
+        <div class="diff">Сложность <span class="bar"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span> 6 days</div>
+      </div>
+    </div>
+
+    <!-- IDEA 16 -->
+    <div class="idea">
+      <div class="num">16</div>
+      <div class="body">
+        <h3>SaaS Metered Billing</h3>
+        <div class="tagline">Stripe Metered Billing, но каждый API-call settle on-chain за $0.01.</div>
+        <div class="desc">SDK для SaaS-провайдеров: оборачивает endpoint, на каждый запрос пишет usage event в смарт-контракт на Arc. В конце месяца контракт автоматически дёргает USDC с клиентского approved-баланса. Прозрачное pricing, нет инвойсов, не нужны бухгалтерия и КонтрАгенты для оплаты. Работает потому, что Arc держит fees $0.01 и стабильные.</div>
+        <div class="mvp"><strong>MVP scope</strong>Solidity usage-tracker контракт на Arc, Express middleware для логирования events, monthly settlement job (Paymaster платит за settlement в USDC), customer dashboard с usage и историей.</div>
+        <div class="moat">Только Arc делает $0.01 настолько стабильными, что on-chain биллинг каждого API-call экономичен. На Ethereum/Base — невозможно. EWMA fee design — реальный технический enabler.</div>
+      </div>
+      <div class="stack">
+        <div class="stack-block">
+          <div class="stack-label">Primitives</div>
+          <div class="chip-row">
+            <span class="chip arc">Arc · Stable Fees</span>
+            <span class="chip circle">Contract Platform</span>
+            <span class="chip circle">Paymaster</span>
+            <span class="chip circle">Event Monitoring</span>
+          </div>
+        </div>
+        <div class="stack-block">
+          <div class="stack-label">Skills</div>
+          <div class="chip-row">
+            <span class="chip ai">use-arc</span>
+            <span class="chip ai">use-smart-contract-platform</span>
+          </div>
+        </div>
+        <div class="diff">Сложность <span class="bar"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span> 3 days</div>
+      </div>
+    </div>
+
+    <!-- IDEA 17 -->
+    <div class="idea">
+      <div class="num">17</div>
+      <div class="body">
+        <h3>DAO Treasury Vault</h3>
+        <div class="tagline">Multisig × Compliance × Modular Wallets для DAO-казны.</div>
+        <div class="desc">Modular wallet с allowlist-модулем как кошелёк DAO. Members голосуют через UI (Snapshot-style), результат добавляет/убирает адреса в allowlist через batch user operation. Каждый outflow проходит Compliance Engine screening. Аудит-trail публичный, alerts в Telegram.</div>
+        <div class="mvp"><strong>MVP scope</strong>Modular Wallets Web SDK + кастомный allowlist module (написать или установить из Circle Modules), Next.js voting UI с Snapshot intergration, dev-controlled relay wallet для подачи операций, Compliance Engine middleware для outflow проверок.</div>
+        <div class="moat">Сочетание ERC-6900 модульности + Compliance Engine API — Circle единственный в экосистеме предоставляет такой полный стек compliance под капотом смарт-кошельков.</div>
+      </div>
+      <div class="stack">
+        <div class="stack-block">
+          <div class="stack-label">Primitives</div>
+          <div class="chip-row">
+            <span class="chip circle">Modular Wallets</span>
+            <span class="chip circle">Allowlist Module</span>
+            <span class="chip compliance">Compliance Engine</span>
+            <span class="chip circle">Event Monitoring</span>
+          </div>
+        </div>
+        <div class="stack-block">
+          <div class="stack-label">Skills</div>
+          <div class="chip-row">
+            <span class="chip ai">use-modular-wallets</span>
+            <span class="chip ai">use-circle-wallets</span>
+          </div>
+        </div>
+        <div class="diff">Сложность <span class="bar"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span> 4-5 days</div>
+      </div>
+    </div>
+
+    <!-- IDEA 18 -->
+    <div class="idea">
+      <div class="num">18</div>
+      <div class="body">
+        <h3>Sub — Subscriptions для USDC</h3>
+        <div class="tagline">Stripe Subscriptions for USDC. Plans, prorations, dunning, cancellations.</div>
+        <div class="desc">SaaS-биллинг на USDC: continuous payment intents Circle Mint как «receivable», customer prepay'ит USDC на stable address, billing engine списывает по pricing plan'у (monthly/yearly/usage-based) через scheduled batch transfers. Поддержка prorations при upgrade/downgrade, dunning при недостатке балансу, refunds через Refund Protocol.</div>
+        <div class="mvp"><strong>MVP scope</strong>Next.js admin (plans CRUD), customer portal (active subscription, payment history, top-up), Postgres с invoices, scheduled jobs на dev-controlled wallets для billing run. Stripe-compatible API surface чтоб мигрировать было легко.</div>
+        <div class="moat">Continuous payment intents + предсказуемые fees на Arc + Refund Protocol — Circle единственный, кто закрывает полный subscription billing loop без costs, которые съедают сами подписки.</div>
+      </div>
+      <div class="stack">
+        <div class="stack-block">
+          <div class="stack-label">Primitives</div>
+          <div class="chip-row">
+            <span class="chip circle">Managed Payments</span>
+            <span class="chip circle">Dev Wallets</span>
+            <span class="chip arc">Arc · Refund Protocol</span>
+            <span class="chip arc">Arc · Stable Fees</span>
+          </div>
+        </div>
+        <div class="stack-block">
+          <div class="stack-label">Skills</div>
+          <div class="chip-row">
+            <span class="chip ai">use-dev-controlled-wallets</span>
+            <span class="chip ai">use-usdc</span>
+          </div>
+        </div>
+        <div class="diff">Сложность <span class="bar"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span> 5 days</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── CTA ───────────────────────────────────────────── -->
+<section class="cta">
+  <div class="cta-inner">
+    <h2>Куда <em>двигаться дальше</em></h2>
+    <p>Если первая десятка (v1) была про consumer-приложения и agentic commerce, эти восемь — про institutional fintech, compliance-tech и инфраструктурный middleware. Они менее «выходные»-friendly, но защитимые: для трёх из них (Compliance Engine, StableFX) нужно vetting/eligibility, что само по себе moat.</p>
+    <p>Рекомендую: <strong>#16 SaaS Metered Billing</strong> как быстрый старт (3 дня, MVP без gated access), и <strong>#11 EuroPay Corridor</strong> как длинная игра (StableFX даёт уникальный rail для cross-border).</p>
+    <div class="links">
+      <a href="./index.html" class="primary">← К v1 (идеи 01-10)</a>
+      <a href="https://github.com/danilaverbena/arc-circle-ideas" target="_blank" rel="noopener noreferrer">GitHub репозиторий</a>
+      <a href="https://docs.arc.network/build" target="_blank" rel="noopener noreferrer">Arc Docs</a>
+      <a href="https://developers.circle.com/stablefx" target="_blank" rel="noopener noreferrer">StableFX</a>
+      <a href="https://developers.circle.com/wallets/compliance-engine" target="_blank" rel="noopener noreferrer">Compliance Engine</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>Brief v2 · Deeper Cut</span>
+  <span>11.05.2026</span>
+</footer>
+
+</body>
+</html>
